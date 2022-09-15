@@ -1,24 +1,27 @@
+// Require modules
 const prompt = require('prompt-sync')();
 var menu = require('console-menu');
 
 const toDoList = [];
+
 const options = [
   "Afficher les elements",
   "Ajouté un element",
   "Modifier un element",
   "Supprimer un element"
 ]
+
 const numberOptions = parseInt(options.length);
 const menuOptions = []
 for (const option in options) {
   menuOptions.push({ hotkey: parseInt(option) + 1, title: options[option] })
 }
+
 menuOptions.push({ separator: true }); menuOptions.push({ hotkey: 99, title: 'Quitté' })
 main()
 
 async function main() {
   while (true) {
-
     await menu(menuOptions, {
       header: 'Menu Principal',
       border: true,
@@ -27,7 +30,22 @@ async function main() {
       let choise = JSON.parse(JSON.stringify(item)).hotkey;
 
       if (!isNaN(choise)) {
+
         choise = parseInt(choise);
+        switch (choise) {
+          case 1:
+            console.log('\n======= Element de la Liste =======')
+            if (toDoList.length != 0) {
+              for (const key in toDoList) {
+                console.log(`${parseInt(key) + 1}. ${toDoList[key].name} | ${toDoList[key].status ? "✅" : "❌"}`);
+              }
+            } else console.log('La liste est vide.')
+            console.log('===================================')
+            break;
+
+          default:
+            break;
+        }
         if (choise == 1) {
           console.log('\n======= Element de la Liste =======')
           if (toDoList.length != 0) {
@@ -89,5 +107,20 @@ async function main() {
         }
       } else console.log('Veuillez entrer un nombre')
     });
+  }
+}
+
+async function logger(loggerName, backLine, content) {
+  switch (key) {
+    case "title":
+        console.log(`${backLine ? "\n" : ""}======= ${backLine ? content : "No Name"} =======`)
+      break;
+
+    case "separator":
+      console.log(`${backLine ? "\n" : ""}====================================`)
+    break;
+  
+    default:
+      break;
   }
 }
