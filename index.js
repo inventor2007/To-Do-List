@@ -40,7 +40,7 @@ async function main() {
                 console.log(`${parseInt(key) + 1}. ${toDoList[key].name} | ${toDoList[key].status ? "✅" : "❌"}`);
               }
             } else console.log('La liste est vide.')
-            console.log('===================================')
+            await logger("separator", false, null);
             break;
 
           default:
@@ -53,12 +53,12 @@ async function main() {
               console.log(`${parseInt(key) + 1}. ${toDoList[key].name} | ${toDoList[key].status ? "✅" : "❌"}`);
             }
           } else console.log('La liste est vide.')
-          console.log('===================================')
+          await logger("separator", false, null);
         } else if (choise == 2) {
           console.log('\n======= Nouvelle Element =======')
           let nameNewElements = prompt(`Nom de l'element : `);
 
-          console.log('\n================================')
+          await logger("separator", true, null);
           console.info(`L'element ${nameNewElements} a été ajouté à la liste.`)
           toDoList.push({ name: nameNewElements, status: false })
         } else if (choise == 3) {
@@ -84,7 +84,7 @@ async function main() {
             } else console.log('Veuillez entrer un nombre')
           } else console.log("Aucun element n'a supprimé car la lite est vide.")
 
-          console.log('====================================');
+          await logger("separator", false, null);
 
         } else if (choise == 4) {
           console.log('\n======= Supprimer un element =======')
@@ -101,7 +101,7 @@ async function main() {
             } else console.log('Veuillez entrer un nombre')
           } else console.log("Aucun element n'a supprimé car la lite est vide.")
 
-          console.log('====================================')
+          await logger("separator", false, null);
         } else if (choise == 99) {
           process.exit();
         }
@@ -110,16 +110,22 @@ async function main() {
   }
 }
 
+/**
+ * 
+ * @param {string} loggerName 
+ * @param {boolean} backLine 
+ * @param {string} content 
+ */
 async function logger(loggerName, backLine, content) {
   switch (key) {
     case "title":
-        console.log(`${backLine ? "\n" : ""}======= ${backLine ? content : "No Name"} =======`)
+      await console.log(`${backLine ? "\n" : ""}======= ${backLine ? content : "No Name"} =======`)
       break;
 
     case "separator":
-      console.log(`${backLine ? "\n" : ""}====================================`)
-    break;
-  
+      await console.log(`${backLine ? "\n" : ""}====================================`)
+      break;
+
     default:
       break;
   }
