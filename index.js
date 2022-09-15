@@ -25,7 +25,7 @@ async function main() {
     await menu(menuOptions, {
       header: 'Menu Principal',
       border: true,
-    }).then(item => {
+    }).then(async item => {
       console.clear()
       let choise = JSON.parse(JSON.stringify(item)).hotkey;
 
@@ -117,7 +117,7 @@ async function main() {
  * @param {string} content 
  */
 async function logger(loggerName, backLine, content) {
-  switch (key) {
+  switch (loggerName) {
     case "title":
       await console.log(`${backLine ? "\n" : ""}======= ${backLine ? content : "No Name"} =======`)
       break;
